@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Year 6 Grammar Stars: Barbie Dream Quiz</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --pink-dark: #9d174d;
+      --pink-primary: #ec4899;
+      --pink-medium: #f472b6;
+      --pink-light: #fdf2f8;
+      --pink-card: rgba(255, 255, 255, 0.94);
+      --accent-gold: #f59e0b;
+      --success: #10b981;
+      --danger: #ef4444;
+      --text-dark: #374151;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: linear-gradient(135deg, #fbcfe8 0%, #f472b6 40%, #fda4af 75%, #fce7f3 100%);
+      background-attachment: fixed;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px 14px;
+      color: var(--text-dark);
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Kilauan Bintang Beranimasi Latar Belakang */
+    .sparkle {
+      position: absolute;
+      color: #fff;
+      font-size: 1.5rem;
+      pointer-events: none;
+      animation: twinkle 3s infinite ease-in-out;
+      opacity: 0.7;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { transform: scale(0.6) rotate(0deg); opacity: 0.3; }
+      50% { transform: scale(1.2) rotate(180deg); opacity: 0.9; }
+    }
+
+    .container {
+      width: 100%;
+      max-width: 680px;
+      background: var(--pink-card);
+      border: 4px solid #fbcfe8;
+      border-radius: 28px;
+      padding: 28px 24px;
+      box-shadow: 0 20px 45px rgba(157, 23, 77, 0.25), 0 0 0 8px rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(12px);
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Pengepala Utama */
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .badge-top {
+      display: inline-block;
+      background: linear-gradient(135deg, #ec4899, #db2777);
+      color: #fff;
+      font-family: 'Fredoka', cursive;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      padding: 6px 16px;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(236, 72, 153, 0.35);
+      margin-bottom: 8px;
+    }
+
+    .header h1 {
+      font-family: 'Fredoka', cursive;
+      font-size: 2.1rem;
+      color: var(--pink-dark);
+      letter-spacing: 1px;
+      text-shadow: 1px 1px 0 #fff;
+    }
+
+    .header p {
+      font-size: 0.95rem;
+      color: #831843;
+      font-weight: 700;
+    }
+
+    /* Bar Kemajuan */
+    .progress-bar-container {
+      background: #fce7f3;
+      border-radius: 20px;
+      height: 14px;
+      overflow: hidden;
+      margin-bottom: 18px;
+      border: 2px solid #fbcfe8;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #ec4899, #f43f5e);
+      border-radius: 20px;
+      transition: width 0.3s ease;
+    }
+
+    .stats-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #fdf2f8;
+      border: 2px dashed #f472b6;
+      border-radius: 16px;
+      padding: 10px 18px;
+      margin-bottom: 20px;
+      font-weight: 800;
+      font-size: 1rem;
+      color: var(--pink-dark);
+    }
+
+    /* Kotak Soalan */
+    .question-card {
+      background: #fff;
+      border: 3px solid #fbcfe8;
+      border-radius: 22px;
+      padding: 22px 18px;
+      margin-bottom: 20px;
+      box-shadow: 0 8px 20px rgba(244, 114, 182, 0.12);
+      text-align: center;
+    }
+
+    .category-tag {
+      font-size: 0.8rem;
+      color: #db2777;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .question-text {
+      font-size: 1.35rem;
+      font-weight: 800;
+      line-height: 1.6;
+      color: #1f2937;
+      margin-bottom: 12px;
+    }
+
+    .btn-speak {
+      background: #fdf2f8;
+      border: 2px solid #f472b6;
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      font-size: 1.25rem;
+      cursor: pointer;
+      transition: transform 0.15s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 10px rgba(244, 114, 182, 0.2);
+    }
+
+    .btn-speak:hover {
+      transform: scale(1.1);
+      background: #fce7f3;
+    }
+
+    /* Pilihan Jawapan */
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .option-btn {
+      background: #fff;
+      border: 2.5px solid #f9a8d4;
+      border-radius: 18px;
+      padding: 14px 10px;
+      font-family: inherit;
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #4b5563;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 0 #f472b6;
+      text-align: center;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      background: #fdf2f8;
+      border-color: #ec4899;
+      transform: translateY(-2px);
+    }
+
+    .option-btn:active:not(:disabled) {
+      transform: translateY(2px);
+      box-shadow: none;
+    }
+
+    .option-btn.correct {
+      background: #d1fae5 !important;
+      border-color: var(--success) !important;
+      color: #065f46 !important;
+      box-shadow: 0 4px 0 #059669 !important;
+    }
+
+    .option-btn.wrong {
+      background: #fee2e2 !important;
+      border-color: var(--danger) !important;
+      color: #991b1b !important;
+      box-shadow: 0 4px 0 #dc2626 !important;
+    }
+
+    /* Kotak Penerangan Tatabahasa */
+    .explanation-box {
+      display: none;
+      background: #fdf2f8;
+      border-left: 5px solid var(--pink-primary);
+      border-radius: 12px;
+      padding: 12px 16px;
+      margin-bottom: 20px;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: #831843;
+      text-align: left;
+    }
+
+    .btn-next {
+      width: 100%;
+      background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      padding: 14px 20px;
+      font-family: 'Fredoka', cursive;
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      cursor: pointer;
+      box-shadow: 0 6px 18px rgba(219, 39, 119, 0.4);
+      transition: all 0.2s;
+      display: none;
+    }
+
+    .btn-next:hover {
+      background: linear-gradient(135deg, #f472b6 0%, #ec4899 100%);
+      transform: translateY(-2px);
+    }
+
+    /* Skrin Keputusan */
+    .result-screen {
+      display: none;
+      text-align: center;
+      padding: 20px 10px;
+    }
+
+    .result-icon {
+      font-size: 5rem;
+      margin-bottom: 12px;
+      animation: bounce 1.5s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .result-title {
+      font-family: 'Fredoka', cursive;
+      font-size: 2.2rem;
+      color: var(--pink-dark);
+      margin-bottom: 10px;
+    }
+
+    .score-banner {
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: #db2777;
+      background: #fdf2f8;
+      border: 3px dashed #f472b6;
+      border-radius: 18px;
+      padding: 16px;
+      margin: 16px 0;
+    }
+
+    .btn-restart {
+      background: linear-gradient(135deg, #ec4899, #db2777);
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      padding: 14px 30px;
+      font-family: 'Fredoka', cursive;
+      font-size: 1.2rem;
+      cursor: pointer;
+      box-shadow: 0 6px 18px rgba(219, 39, 119, 0.4);
+      margin-top: 15px;
+    }
+
+    @media (max-width: 580px) {
+      .container { padding: 20px 16px; }
+      .header h1 { font-size: 1.7rem; }
+      .options-grid { grid-template-columns: 1fr; }
+      .question-text { font-size: 1.15rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Efek Kilauan Bintang -->
+  <div class="sparkle" style="top: 8%; left: 10%;">✨</div>
+  <div class="sparkle" style="top: 15%; right: 12%; animation-delay: 1s;">💖</div>
+  <div class="sparkle" style="bottom: 12%; left: 8%; animation-delay: 1.8s;">⭐</div>
+  <div class="sparkle" style="bottom: 18%; right: 10%; animation-delay: 0.6s;">🎀</div>
+
+  <div class="container">
+    
+    <!-- Pengepala Utama -->
+    <div class="header">
+      <div class="badge-top">YEAR 6 CEFR · DSKP GRAMMAR</div>
+      <h1>🌸 Barbie Grammar Dream Quiz 🌸</h1>
+      <p>Mastering Modal Verbs: Must, Should & Have To</p>
+    </div>
+
+    <!-- Paparan Kuiz -->
+    <div id="quizSection">
+      <div class="progress-bar-container">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+
+      <div class="stats-bar">
+        <div>Question: <span id="currentQNum">1</span> / <span id="totalQNum">30</span></div>
+        <div>Score: ⭐ <span id="scoreText">0</span></div>
+      </div>
+
+      <div class="question-card">
+        <div class="category-tag" id="categoryTag">CATEGORY</div>
+        <div class="question-text" id="questionText">Loading question...</div>
+        <button class="btn-speak" id="speakBtn" title="Dengar soalan">🔊</button>
+      </div>
+
+      <div class="options-grid" id="optionsGrid">
+        <!-- 4 Butang Pilihan -->
+      </div>
+
+      <div class="explanation-box" id="explanationBox">
+        <strong>💡 Grammar Tip:</strong> <span id="explanationText"></span>
+      </div>
+
+      <button class="btn-next" id="nextBtn">Next Question ❯</button>
+    </div>
+
+    <!-- Skrin Tamat Kuiz -->
+    <div class="result-screen" id="resultSection">
+      <div class="result-icon" id="resultIcon">👑</div>
+      <h2 class="result-title" id="resultTitle">Fabulous Job!</h2>
+      <div class="score-banner" id="finalScoreBanner">You scored 0 / 30</div>
+      <p id="resultFeedback" style="font-size: 1.1rem; line-height: 1.6; color: #4b5563; margin-bottom: 20px;"></p>
+      <button class="btn-restart" id="restartBtn">Play Again 🔄</button>
+    </div>
+
+  </div>
+
+  <script>
+    // 30 Soalan Tatabahasa Modal Verbs Selaras DSKP Tahun 6 & UASA
+    const questions = [
+      {
+        q: "Barbie ________ study hard tonight because her Year 6 assessment starts tomorrow morning.",
+        options: ["must", "shouldn't", "mustn't", "don't have to"],
+        answer: "must",
+        cat: "Obligation / Rules",
+        exp: "'Must' digunakan untuk menyatakan kewajipan penting yang perlu dilakukan demi kejayaan peperiksaan."
+      },
+      {
+        q: "You look exhausted, Ken. You ________ drink some warm tea and go to bed early.",
+        options: ["should", "mustn't", "have", "doesn't have to"],
+        answer: "should",
+        cat: "Giving Advice",
+        exp: "'Should' digunakan untuk memberi nasihat atau cadangan yang baik kepada rakan."
+      },
+      {
+        q: "Pupils ________ bring sharp objects or scissors into the exam hall. It is against the rules.",
+        options: ["mustn't", "should", "don't have to", "have to"],
+        answer: "mustn't",
+        cat: "Prohibition",
+        exp: "'Mustn't' menyatakan larangan mutlak (*strictly forbidden*) berdasarkan peraturan rasmi sekolah."
+      },
+      {
+        q: "Tomorrow is Sunday! Barbie and her sisters ________ wake up at 6:00 AM.",
+        options: ["don't have to", "must", "should", "mustn't to"],
+        answer: "don't have to",
+        cat: "Lack of Obligation",
+        exp: "'Don't have to' bermaksud tiada kewajipan untuk bangun awal kerana hari cuti (bebas memilih)."
+      },
+      {
+        q: "Barbie should ________ her pink rain jacket before going out in the rain.",
+        options: ["wear", "wears", "wearing", "wore"],
+        answer: "wear",
+        cat: "Verb Base Form (V1)",
+        exp: "Selepas modal verb (seperti *should*), kata kerja mesti sentiasa berada dalam bentuk dasar (*bare infinitive*) tanpa sebarang imbuhan."
+      },
+      {
+        q: "You ________ touch hot test tubes with your bare hands in the science lab!",
+        options: ["mustn't", "should", "don't have to", "must"],
+        answer: "mustn't",
+        cat: "Safety Rules",
+        exp: "'Mustn't' digunakan untuk melarang tindakan berbahaya yang mengancam keselamatan."
+      },
+      {
+        q: "Teresa has a bad toothache. She ________ visit the dentist today.",
+        options: ["should", "mustn't", "shouldn't", "don't have to"],
+        answer: "should",
+        cat: "Giving Advice",
+        exp: "'Should' ialah nasihat perubatan terbaik untuk seseorang yang sedang mengalami sakit gigi."
+      },
+      {
+        q: "Ken ________ submit his English project by Friday because it is the strict deadline.",
+        options: ["has to", "shouldn't", "don't have to", "mustn't"],
+        answer: "has to",
+        cat: "External Obligation",
+        exp: "'Has to' digunakan bersama subjek tunggal (Ken) bagi mematuhi peraturan luaran bertarikh tutup."
+      },
+      {
+        q: "Students ________ talk loudly while the librarian is reading a storybook.",
+        options: ["shouldn't", "must", "have to", "should"],
+        answer: "shouldn't",
+        cat: "Mild Prohibition / Manners",
+        exp: "'Shouldn't' menunjukkan kelakuan tersebut adalah tidak sopan di dalam perpustakaan."
+      },
+      {
+        q: "Every driver ________ stop when the traffic light turns red in Barbie Land.",
+        options: ["must", "shouldn't", "doesn't have to", "might"],
+        answer: "must",
+        cat: "Traffic Law",
+        exp: "Undang-undang jalan raya adalah mandatori dan wajib menggunakan 'must'."
+      },
+      {
+        q: "Ken must ________ his seatbelt before driving his pink convertible car.",
+        options: ["fasten", "fastens", "fastened", "fastening"],
+        answer: "fasten",
+        cat: "Verb Base Form (V1)",
+        exp: "Selepas perkataan 'must', kata kerja kekal 'fasten' tanpa sebarang huruf tambahan."
+      },
+      {
+        q: "The museum entrance is totally free today. We ________ pay any tickets!",
+        options: ["don't have to", "mustn't", "must", "shouldn't to"],
+        answer: "don't have to",
+        cat: "Lack of Obligation",
+        exp: "Apabila tiket percuma, tiada keperluan wang yang perlu dibayar (*no obligation*)."
+      },
+      {
+        q: "Barbie loves reading. She thinks everyone ________ read at least one book a month.",
+        options: ["should", "mustn't", "have", "doesn't have to"],
+        answer: "should",
+        cat: "Opinion / Recommendation",
+        exp: "'Should' paling sesuai digunakan untuk menyatakan cadangan hobi dan pendapat membina."
+      },
+      {
+        q: "You ________ eat too many sweet pink cupcakes before dinner, or you will get a tummy ache.",
+        options: ["shouldn't", "must", "have to", "should"],
+        answer: "shouldn't",
+        cat: "Health Advice",
+        exp: "'Shouldn't' menasihati agar mengelakkan tabiat pemakanan kurang sihat."
+      },
+      {
+        q: "To enter the Barbie Dreamhouse Gala, guests ________ show their golden VIP tickets.",
+        options: ["must", "mustn't", "shouldn't", "don't have to"],
+        answer: "must",
+        cat: "Strict Requirement",
+        exp: "Syarat wajib masuk ke majlis khas memerlukan penggunaan modal 'must'."
+      },
+      {
+        q: "Skipper ________ wash the family car today. Ken has already washed it this morning.",
+        options: ["doesn't have to", "mustn't", "must", "should"],
+        answer: "doesn't have to",
+        cat: "Lack of Obligation",
+        exp: "Tugasan telahpun diselesaikan orang lain, maka Skipper tidak perlu mengulanginya lagi."
+      },
+      {
+        q: "Barbie and her friends ________ be kind and helpful to their classmates.",
+        options: ["should", "mustn't", "doesn't have to", "have"],
+        answer: "should",
+        cat: "Moral Value",
+        exp: "'Should' menggalakkan nilai murni dan perlakuan berhemah sesama rakan."
+      },
+      {
+        q: "You ________ feed the animals in the national zoo. It can make them sick.",
+        options: ["mustn't", "have to", "should", "don't have to"],
+        answer: "mustn't",
+        cat: "Zoo Rules / Prohibition",
+        exp: "Papan tanda larangan di zoo membawa erti ketat 'mustn't'."
+      },
+      {
+        q: "Does Ken ________ wear a formal pink tie to the school assembly?",
+        options: ["have to", "must", "shouldn't", "has to"],
+        answer: "have to",
+        cat: "Questions with 'Does'",
+        exp: "Dalam ayat tanya menggunakan perkataan *Does*, bentuk kata kerja kembali kepada 'have to'."
+      },
+      {
+        q: "We ________ cross the road when the pedestrian signal is red.",
+        options: ["mustn't", "should", "have to", "don't have to"],
+        answer: "mustn't",
+        cat: "Road Safety",
+        exp: "Melintas jalan semasa lampu merah amat berbahaya dan dilarang sama sekali (*mustn't*)."
+      },
+      {
+        q: "Barbie: 'Ken, you ________ forget to water the pink garden flowers while I am away.'",
+        options: ["mustn't", "should", "have to", "doesn't have to"],
+        answer: "mustn't",
+        cat: "Strong Reminder",
+        exp: "'Mustn't forget' ialah frasa peringatan tegas agar tidak terlupa tugasan penting."
+      },
+      {
+        q: "If you have a fever, you ________ stay at home and rest.",
+        options: ["should", "mustn't", "don't have to", "have"],
+        answer: "should",
+        cat: "First Conditional Advice",
+        exp: "Bagi ayat bersyarat berkaitan kesihatan, 'should' memberikan panduan tindakan terbaik."
+      },
+      {
+        q: "Ken ________ to apologize to Barbie for accidentally breaking her sunglasses.",
+        options: ["ought", "must", "should", "mustn't"],
+        answer: "ought",
+        cat: "Modal with 'to'",
+        exp: "Perhatikan kata sendi 'to'. Antara pilihan yang ada, hanya 'ought' berpasangan dengan 'to' (*ought to = should*)."
+      },
+      {
+        q: "Children ________ play with matches or lighters. Fire is very dangerous.",
+        options: ["mustn't", "should", "don't have to", "can"],
+        answer: "mustn't",
+        cat: "Home Safety",
+        exp: "Bermain dengan api adalah larangan tegas demi mengelakkan kebakaran."
+      },
+      {
+        q: "You ________ shout in the computer lab. Everyone is concentrating on their coding tasks.",
+        options: ["shouldn't", "must", "have to", "should"],
+        answer: "shouldn't",
+        cat: "Classroom Etiquette",
+        exp: "Menjerit di bilik komputer adalah perlakuan yang tidak wajar (*shouldn't*)."
+      },
+      {
+        q: "Barbie has an extra pen, so Ken ________ buy a new one at the bookstore.",
+        options: ["doesn't have to", "mustn't", "should", "must"],
+        answer: "doesn't have to",
+        cat: "Lack of Obligation",
+        exp: "Oleh kerana sudah ada pen tambahan, tiada keperluan membeli yang baharu."
+      },
+      {
+        q: "All Year 6 candidates ________ write their answers clearly in the answer booklet.",
+        options: ["must", "shouldn't", "mustn't", "don't have to"],
+        answer: "must",
+        cat: "Exam Instructions",
+        exp: "Arahan rasmi kertas peperiksaan adalah arahan mandatori (*must*)."
+      },
+      {
+        q: "Ken wants to run faster in the sports carnival. He ________ practice sprinting every evening.",
+        options: ["should", "mustn't", "doesn't have to", "has"],
+        answer: "should",
+        cat: "Sports Advice",
+        exp: "Latihan konsisten ialah cadangan terbaik (*should*) untuk mencapai sasaran sukan."
+      },
+      {
+        q: "You ________ reveal your computer account password to anyone on the internet.",
+        options: ["mustn't", "should", "have to", "don't have to"],
+        answer: "mustn't",
+        cat: "Cyber Safety",
+        exp: "Keselamatan kata laluan internet adalah larangan mutlak daripada didedahkan."
+      },
+      {
+        q: "The school bus arrives at 7:00 AM sharp. We ________ be late!",
+        options: ["mustn't", "should", "don't have to", "have to"],
+        answer: "mustn't",
+        cat: "Punctuality",
+        exp: "'Mustn't be late' bermaksud tidak boleh lewat sama sekali supaya tidak ketinggalan bas."
+      }
+    ];
+
+    let currentIdx = 0;
+    let score = 0;
+    let canAnswer = true;
+
+    const quizSection = document.getElementById("quizSection");
+    const resultSection = document.getElementById("resultSection");
+    const currentQNum = document.getElementById("currentQNum");
+    const totalQNum = document.getElementById("totalQNum");
+    const scoreText = document.getElementById("scoreText");
+    const progressFill = document.getElementById("progressFill");
+    const categoryTag = document.getElementById("categoryTag");
+    const questionText = document.getElementById("questionText");
+    const optionsGrid = document.getElementById("optionsGrid");
+    const explanationBox = document.getElementById("explanationBox");
+    const explanationText = document.getElementById("explanationText");
+    const nextBtn = document.getElementById("nextBtn");
+    const speakBtn = document.getElementById("speakBtn");
+    const restartBtn = document.getElementById("restartBtn");
+
+    totalQNum.textContent = questions.length;
+
+    // Sebutan Suara Web Speech API
+    function speakText(text) {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const clean = text.replace(/________/g, "blank");
+        const utterance = new SpeechSynthesisUtterance(clean);
+        utterance.lang = 'en-US';
+        utterance.rate = 0.88;
+        window.speechSynthesis.speak(utterance);
+      }
+    }
+
+    function loadQuestion(index) {
+      canAnswer = true;
+      explanationBox.style.display = "none";
+      nextBtn.style.display = "none";
+
+      const item = questions[index];
+      currentQNum.textContent = index + 1;
+      categoryTag.textContent = item.cat;
+      questionText.textContent = item.q;
+
+      // Kemaskini Bar Kemajuan
+      const progressPercent = ((index) / questions.length) * 100;
+      progressFill.style.width = progressPercent + "%";
+
+      optionsGrid.innerHTML = "";
+
+      item.options.forEach(opt => {
+        const btn = document.createElement("button");
+        btn.className = "option-btn";
+        btn.textContent = opt;
+        btn.addEventListener("click", () => handleSelect(opt, btn));
+        optionsGrid.appendChild(btn);
+      });
+    }
+
+    function handleSelect(selectedOpt, btnElement) {
+      if (!canAnswer) return;
+      canAnswer = false;
+
+      const item = questions[currentIdx];
+      const buttons = optionsGrid.querySelectorAll(".option-btn");
+
+      // Lumpuhkan semua butang pilihan
+      buttons.forEach(b => b.disabled = true);
+
+      if (selectedOpt === item.answer) {
+        btnElement.classList.add("correct");
+        score++;
+        scoreText.textContent = score;
+      } else {
+        btnElement.classList.add("wrong");
+        // Tandakan butang jawapan yang betul
+        buttons.forEach(b => {
+          if (b.textContent === item.answer) {
+            b.classList.add("correct");
+          }
+        });
+      }
+
+      // Paparkan penerangan jawapan
+      explanationText.textContent = item.exp;
+      explanationBox.style.display = "block";
+      nextBtn.style.display = "block";
+    }
+
+    nextBtn.addEventListener("click", () => {
+      currentIdx++;
+      if (currentIdx < questions.length) {
+        loadQuestion(currentIdx);
+      } else {
+        showResults();
+      }
+    });
+
+    speakBtn.addEventListener("click", () => {
+      speakText(questions[currentIdx].q);
+    });
+
+    function showResults() {
+      quizSection.style.display = "none";
+      resultSection.style.display = "block";
+      progressFill.style.width = "100%";
+
+      const finalBanner = document.getElementById("finalScoreBanner");
+      const resultIcon = document.getElementById("resultIcon");
+      const resultTitle = document.getElementById("resultTitle");
+      const feedback = document.getElementById("resultFeedback");
+
+      finalBanner.textContent = `Your Final Score: ${score} / ${questions.length}`;
+
+      const percentage = (score / questions.length) * 100;
+
+      if (percentage >= 85) {
+        resultIcon.textContent = "👑💖";
+        resultTitle.textContent = "Barbie Land High Achiever!";
+        feedback.innerHTML = "Sensational work! You have truly mastered <strong>Must, Should & Have To</strong>. You are completely ready for your Year 6 school assessments!";
+      } else if (percentage >= 60) {
+        resultIcon.textContent = "🎀✨";
+        resultTitle.textContent = "Fabulous Effort!";
+        feedback.innerHTML = "Good job! You have a solid grasp of modal verbs, but be careful with verb base forms (V1) and distinguishing between <em>mustn't</em> and <em>don't have to</em>.";
+      } else {
+        resultIcon.textContent = "🌸💪";
+        resultTitle.textContent = "Keep Practicing, Superstar!";
+        feedback.innerHTML = "Do not worry! Grammar takes time. Take a quick look at the tips again and try one more round to get your golden score!";
+      }
+    }
+
+    restartBtn.addEventListener("click", () => {
+      currentIdx = 0;
+      score = 0;
+      scoreText.textContent = "0";
+      resultSection.style.display = "none";
+      quizSection.style.display = "block";
+      loadQuestion(0);
+    });
+
+    // Mulakan soalan pertama
+    loadQuestion(0);
+  </script>
+</body>
+</html>
